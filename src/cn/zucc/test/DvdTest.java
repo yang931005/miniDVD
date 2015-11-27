@@ -1,6 +1,8 @@
 package cn.zucc.test;
 
 import java.text.ParseException;
+
+import cn.zucc.dao.DvdDao;
 import cn.zucc.view.DvdMenu;
 public class DvdTest {
 
@@ -35,6 +37,7 @@ public class DvdTest {
 		
 		DvdMenu dm = new DvdMenu();
 		dm.DvdMain();
+		
 		
 	}
 

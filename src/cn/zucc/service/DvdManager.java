@@ -15,6 +15,7 @@ public class DvdManager {
 		if(dvd.getState()==1){
 		dvd.setBorrowdate(new Date());
 		dvd.setReturndate(null);
+		dvd.setBorrowcount(dvd.getBorrowcount()+1);
 		dvd.setState(0);
 		dao.updateDvd(dvd);}else{
 			System.out.println("DVD已借出");
@@ -48,20 +49,20 @@ public class DvdManager {
 	}
 	
 	//用于找到所有数据库中的DVD之后的show方法
-	public void show (){
+	public  void show (){
 		for(Dvd dvd:dd.findallDvd()){
 			System.out.println(dvd);
 		}
 	}
-	public void addDvd(){
-		dd.addDvd();
+	public void addDvd(String name){
+		dd.addDvd(name);
 	}
 	public void findallDvd(){
 		System.out.println("id\t名字\t状态\t次数");
 		dd.findallDvd();
 	}
-	public void deleteDvd(){
-		dd.deleteDvd();
+	public void deleteDvd(int i){
+		dd.deleteDvd(i);
 	}
 	
 }

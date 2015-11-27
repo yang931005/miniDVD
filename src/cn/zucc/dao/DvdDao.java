@@ -7,13 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 
 import cn.zucc.entity.Dvd;
 
 public class DvdDao {
-	Scanner sc = new Scanner(System.in);
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
 	Connection conn=null;
@@ -46,16 +44,13 @@ public class DvdDao {
 		}
 	}
 	//添加DVD
-	public void addDvd(){
-		Dvd dvd = new Dvd();
-		System.out.println("请输入新增DVD名字");
-		dvd.setName(sc.next());
+	public void addDvd(String  name){
+		
 		try{
 			conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/minidvd", "root", "root");
-		
 			String sql = "insert into dvd(name)values(?)";
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, dvd.getName());
+			psmt.setString(1,name);
 			psmt.execute();
 			System.out.println("添加成功");
 			
@@ -70,16 +65,13 @@ public class DvdDao {
 		}	
 	}
 	//删除DVD
-	public void deleteDvd(){
-		int newid;
-		System.out.println("请输入需要删除的DVD的ID");
-		newid = sc.nextInt();
+	public void deleteDvd(int i){
+		
 		try{
 			conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/minidvd", "root", "root");
-			
 			String sql = "delete from dvd where id=?";
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, newid);
+			psmt.setInt(1,i);
 			
 			psmt.execute();
 			System.out.println("删除成功");
@@ -103,7 +95,6 @@ public class DvdDao {
 			String sql = "select * from dvd";
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
-			
 			while(rs.next()){
 			Dvd dvd  = new Dvd();
 			dvd.setName(rs.getString("name"));
@@ -114,17 +105,13 @@ public class DvdDao {
 			dvd.setBorrowcount(rs.getInt("borrowcount"));
 			list.add(dvd);
 			}
-			
 		}catch(SQLException e){
 			System.out.println("查找失败");
 			e.printStackTrace();
 		}finally{
-			
 			myClose();
 		}	
-		
 		return list;
-		
 	}
 	
 	//连接数据库并用于修改
@@ -153,10 +140,8 @@ public class DvdDao {
 			}
 	}
 	//通过DVD的名字来查找DVD
-	public List<Dvd> findbyname(){
-		String name;
-		System.out.println("请输入需要查找的名字");
-		name = sc.next();
+	public List<Dvd> findbyname(String name){
+		
 		List<Dvd> list = new ArrayList<Dvd>();
 		try{
 			conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/minidvd", "root", "root");
